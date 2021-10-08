@@ -8,6 +8,7 @@
 \usepackage[figurename=Fig.,labelfont=bf,labelsep=period]{caption}
 \usepackage{subcaption}
 \usepackage[per-mode=symbol]{siunitx}
+\sisetup{math-micro=\text{µ},text-micro=µ}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -39,7 +40,7 @@
 \end{abstract}
 
 \section{Background}
-Hydrate formation in subsea oil and gas production systems undermines the safety and transport of production fluids. Hydrates form at temperatures below 25 C as the unprocessed production fluid cools down~\cite{nazeri2014evaluation,daraboina2015natural}. Deepwater pipelines are particularly vulnerable to hydrate formation since the surrounding water near the seabed is constantly cold. Hence, it is essential to maintain the well-stream above a specific temperature to achieve steady flow and prevent unfavorable hydrate formation. Traditionally, chemicals are injected into the production fluid to lower the critical temperature below which hydrate formation occurs. An alternative to chemical processing is the Direct Electrical Heating (DEH) of the pipelines by forcing a single-phase high electric current through the pipeline itself~\cite{nysveen2005direct}. Unlike chemical injection, electrical heating offers uniform treatment along the entire length of long pipelines. However, DEH is inefficient, sacrificing a  significant fraction of heat to the surrounding seawater while increasing the risk of stray current and pipeline corrosion. 
+Hydrate formation in subsea oil and gas production systems undermines the safety and transport of production fluids. Hydrates form at temperatures below \SI{25}{\celsius} as the unprocessed production fluid cools down~\cite{nazeri2014evaluation,daraboina2015natural}. Deepwater pipelines are particularly vulnerable to hydrate formation since the surrounding water near the seabed is constantly cold. Hence, it is essential to maintain the well-stream above a specific temperature to achieve steady flow and prevent unfavorable hydrate formation. Traditionally, chemicals are injected into the production fluid to lower the critical temperature below which hydrate formation occurs. An alternative to chemical processing is the Direct Electrical Heating (DEH) of the pipelines by forcing a single-phase high electric current through the pipeline itself~\cite{nysveen2005direct}. Unlike chemical injection, electrical heating offers uniform treatment along the entire length of long pipelines. However, DEH is inefficient, sacrificing a  significant fraction of heat to the surrounding seawater while increasing the risk of stray current and pipeline corrosion. 
 
 
 Inductive heating is an alternative to DEH, which involves heating the pipeline indirectly through separate piggyback power cables strapped to the pipeline (see~\cref{fig:model}). The current-carrying power cables generate heat through ohmic loss, which then inductively heat the pipeline. In inductive heating, the distance between the power cables (heating elements) and the pipeline wall needs to be small to avoid excessive heat dissipation into the seawater. A significant advantage of the indirect heating method is the galvanic insulation between the electric power cable and the pipeline. The risk of stray currents and corrosion is absent~\cite{nysveen2005direct}. Inductive heating offers easy installation avoiding complex designs to embed cables inside the thermal insulation. 
@@ -245,7 +246,8 @@ Conductive heat transfer creates a symmetric spatial distribution of heat around
     \label{fig:1000}
  \end{subfigure}  \\
  
- \caption{Evolution of temperature in the region of interest, as shown in~\cref{fig:model}, with time in soil with permeability $k = \SI{1.67E-11}{\meter\squared} (Ra = 7.29)$. The cables are heated to an above ambient temperature of \SI{70}{\celsius} and the burial depth is \SI{0.5}{\meter}.}
+ \caption{Evolution of temperature in the region of interest, %as shown in~\cref{fig:model},
+   with time in soil with permeability $k = \SI{1.67E-11}{\meter\squared} (Ra = 7.29)$. The cables are heated to an above ambient temperature of \SI{70}{\celsius} and the burial depth is \SI{0.5}{\meter}.}
  \label{fig:time-evol}
 \end{figure}
 
@@ -266,14 +268,22 @@ Conductive heat transfer creates a symmetric spatial distribution of heat around
  \label{fig:temp-depth-hline}
 \end{figure}
 
-\Cref{fig:rate-temp} shows the rate of temperature change with time at the center of the pipe buried in soils with different permeabilities to identify the ideal simulation duration. For high permeability soils ($k > \SI{1E-10}{\meter\squared}$), the steady-state condition is reached within 50 hours, whereas low permeability soils ($K < \SI{1E-12}{\meter\squared}$) show no noticeable change in temperature gradients beyond 150 hours. \Cref{fig:200,fig:500,fig:1000} shows the heat distribution remains unchanged beyond 200 hours. We choose 200 hours for all subsequent simulations to balance the long computational duration and achieve a system closer to steady-state. 
+\Cref{fig:dTdt} shows the rate of temperature change with time at the center of the pipe buried in soils with different permeabilities to identify the ideal simulation duration. For high permeability soils ($k > \SI{1E-10}{\meter\squared}$), the steady-state condition is reached within 50 hours, whereas low permeability soils ($K < \SI{1E-12}{\meter\squared}$) show no noticeable change in temperature gradients beyond 150 hours.~\Cref{fig:200,fig:500,fig:1000} shows the heat distribution remains unchanged beyond 200 hours. We choose 200 hours for all subsequent simulations to balance the long computational duration and achieve a system closer to steady-state. 
+
+\begin{figure}
+    \centering
+    \includegraphics{figs/dTdt.eps}
+    \caption{Evolution of temperature gradient in different soil permeabilities. The cables are heated to an above ambient temperature of \SI{70}{\celsius} and the burial depth is \SI{0.5}{\meter}.}
+    \label{fig:dTdt}
+\end{figure}
 
 \subsection*{Permeability variation}
 The Rayleigh-Darcy dimensionless number ($Ra$) represents the time scales between conductive and convective flow in the soil as shown in~\cref{eq:ra-text}. The critical Rayleigh number that differentiates regions dominated by conduction and convection varies based on the boundary conditions. Unlike other factors defining the Rayleigh number (see~\cref{eq:ra}), the permeability of natural soils ($k$) varies by several orders of magnitude from \SI{1E-16}{\meter\squared} in clayey soil to \SI{1E-7}{\meter\squared} in sandy materials. Hence, of the various factors influencing the Rayleigh number, the soil permeability is a critical factor in determining the mode of heat transfer: conduction or convection.
 
-We vary the soil permeability from 1E-7 to \SI{1E-16}{\meter\squared} to determine the effect of permeability on the mode of heat dissipation. Figure 5 shows the temperature distribution around the pipe after 200 hours in different soil permeabilities. At high permeabilities ($k > \SI{2E-10}{\meter\squared}$), convection dominates, resulting in a near-vertical transfer of heat away from the cables and barely heating the pipe. The seepage velocity in soil controls the time-scale of convection. Highly interconnected pore space in high permeability soils results in higher seepage velocity and a lower time-scale for convection, i.e., higher Rayleigh number. In these high permeabilities, buoyancy forces drive fluid circulation as the ease of fluid flow improves, reducing the time-scale for convection. Convection-driven flows have higher Rayleigh numbers and a preferential upward migration of heat away from the source. Convective flow is detrimental to inductive heating of the pipeline losing a significant fraction of heat to the surrounding soil.
+We vary the soil permeability from 1E-7 to \SI{1E-16}{\meter\squared} to determine the effect of permeability on the mode of heat dissipation.~\Cref{fig:ra-evol} shows the temperature distribution around the pipe after 200 hours in different soil permeabilities. At high permeabilities ($k > \SI{2E-10}{\meter\squared}$), convection dominates, resulting in a near-vertical transfer of heat away from the cables and barely heating the pipe. The seepage velocity in soil controls the time-scale of convection. Highly interconnected pore space in high permeability soils results in higher seepage velocity and a lower time-scale for convection, i.e., higher Rayleigh number. In these high permeabilities, buoyancy forces drive fluid circulation as the ease of fluid flow improves, reducing the time-scale for convection. Convection-driven flows have higher Rayleigh numbers and a preferential upward migration of heat away from the source. Convective flow is detrimental to inductive heating of the pipeline losing a significant fraction of heat to the surrounding soil.
 
-As the permeability reduces ($k =$ \SI{4.9E-11} to \SI{4.9E-12}{\meter\squared}), the heat distributes more uniformly around the cable, heating the pipe; but still showing a preferential upward heat distribution reaching the ground surface typical in a convection-dominated behavior. The pipe temperature increases showing symmetric heat distribution around the cable as the permeability decreases from \SI{1E-12} to \SI{1E-15}{\meter\squared}. In these low permeability conditions, conduction dominates, and the pipeline is heated efficiently, barely losing any heat to the surrounding soil.  At very low permeabilities (in silty and clayey soil with $k < \SI{1E−12}{\meter\squared}$ and $d_m < \SI{70}{\micro\meter}$), the narrow and sparsely interconnected pore spaces limit the fluid flow velocity. Hence, the time scale of convection is much larger than that of conduction, i.e., a smaller Rayleigh number indicating conduction-driven flows. Conductive heat transfer causes an approximately isotropic distribution of heat around the source. 
+As the permeability reduces ($k = \SI{4.9E-11} to \SI{4.9E-12}{\meter\squared}$), the heat distributes more uniformly around the cable, heating the pipe; but still showing a preferential upward heat distribution reaching the ground surface typical in a convection-dominated behavior. The pipe temperature increases showing symmetric heat distribution around the cable as the permeability decreases from \SI{1E-12} to \SI{1E-15}{\meter\squared}. In these low permeability conditions, conduction dominates, and the pipeline is heated efficiently, barely losing any heat to the surrounding soil. At very low permeabilities (in silty and clayey soil with $k < \SI{1E-12}{\meter\squared}$ and $d_m < \SI{70}{\micro\meter}$), the narrow and sparsely interconnected pore spaces limit the fluid flow velocity. Hence, the time scale of convection is much larger than that of conduction, i.e., a smaller Rayleigh number indicating conduction-driven flows. Conductive heat transfer causes an approximately isotropic distribution of heat around the source. 
+
 For a given burial depth, the density of soil determines the time scale of conduction. Unlike the orders of magnitude variation in the soil permeability with grain size, the soil density only varies in a narrow range between 1640 to \SI{2110}{\kilogram\per\meter\cubed}. Although this variation in density affects the time scale of conduction, the difference in the temperature distribution for low permeability soils is negligible at steady state. 
 
 
@@ -325,18 +335,18 @@ For a given burial depth, the density of soil determines the time scale of condu
  \label{fig:ra-evol}
 \end{figure}
 
-\pagebreak
-%
-\appendix
-%
-\section{Notation}
-\label{app:notation}
-The following symbols are used in this paper:
-\nopagebreak
-\par
-\begin{tabular}{r  @{\hspace{1em}=\hspace{1em}}  l}
-$D$                    & Depth of burial (m); \\
-\end{tabular}
+% \pagebreak
+% %
+% \appendix
+% %
+% \section{Notation}
+% \label{app:notation}
+% The following symbols are used in this paper:
+% \nopagebreak
+% \par
+% \begin{tabular}{r  @{\hspace{1em}=\hspace{1em}}  l}
+% $D$                    & Depth of burial (m); \\
+% \end{tabular}
 
 % \label{section:references}
 \bibliography{ascexmpl-new}
