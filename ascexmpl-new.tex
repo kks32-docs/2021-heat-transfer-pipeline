@@ -7,6 +7,7 @@
 \usepackage{graphicx}
 \usepackage[figurename=Fig.,labelfont=bf,labelsep=period]{caption}
 \usepackage{subcaption}
+\usepackage[per-mode=symbol]{siunitx}
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
@@ -41,13 +42,13 @@
 Hydrate formation in subsea oil and gas production systems undermines the safety and transport of production fluids. Hydrates form at temperatures below 25 C as the unprocessed production fluid cools down~\cite{nazeri2014evaluation,daraboina2015natural}. Deepwater pipelines are particularly vulnerable to hydrate formation since the surrounding water near the seabed is constantly cold. Hence, it is essential to maintain the well-stream above a specific temperature to achieve steady flow and prevent unfavorable hydrate formation. Traditionally, chemicals are injected into the production fluid to lower the critical temperature below which hydrate formation occurs. An alternative to chemical processing is the Direct Electrical Heating (DEH) of the pipelines by forcing a single-phase high electric current through the pipeline itself~\cite{nysveen2005direct}. Unlike chemical injection, electrical heating offers uniform treatment along the entire length of long pipelines. However, DEH is inefficient, sacrificing a  significant fraction of heat to the surrounding seawater while increasing the risk of stray current and pipeline corrosion. 
 
 
-Inductive heating is an alternative to DEH, which involves heating the pipeline indirectly through separate piggyback power cables strapped to the pipeline (see Fig. 1). The current-carrying power cables generate heat through ohmic loss, which then inductively heat the pipeline. In inductive heating, the distance between the power cables (heating elements) and the pipeline wall needs to be small to avoid excessive heat dissipation into the seawater. A significant advantage of the indirect heating method is the galvanic insulation between the electric power cable and the pipeline. The risk of stray currents and corrosion is absent~\cite{nysveen2005direct}. Inductive heating offers easy installation avoiding complex designs to embed cables inside the thermal insulation. 
+Inductive heating is an alternative to DEH, which involves heating the pipeline indirectly through separate piggyback power cables strapped to the pipeline (see~\cref{fig:model}). The current-carrying power cables generate heat through ohmic loss, which then inductively heat the pipeline. In inductive heating, the distance between the power cables (heating elements) and the pipeline wall needs to be small to avoid excessive heat dissipation into the seawater. A significant advantage of the indirect heating method is the galvanic insulation between the electric power cable and the pipeline. The risk of stray currents and corrosion is absent~\cite{nysveen2005direct}. Inductive heating offers easy installation avoiding complex designs to embed cables inside the thermal insulation. 
 
 As the cable temperature rises to inductively heat the pipeline, some heat is lost to the surrounding soil and eventually to the seawater. The piggyback cables require higher reactive power to compensate for the heat dissipation into the seawater. The dissipated power depends on the electrical and magnetic properties of the pipeline and the cable, and the hydraulic and mechanical properties of the surrounding soil.
 
 Based on the thermal and hydraulic characteristics of the soil, conduction or convection mechanism can dominate the heat transfer process. Conduction is the transfer of heat through thermal resistance of the material without any bulk motion of matter. On the other hand, buoyancy-driven convection is a heat transfer through fluid flow driven solely by a density difference due to a thermal gradient. As the fluid near the cables absorbs the heat, it becomes less dense and rises due to thermal expansion. The surrounding cooler fluid then moves to replace it forming a natural/free convection. Convective flow results in excessive heat loss and is undesirable. Various factors such as temperature gradient, burial depth, soil permeability, soil density, fluid viscosity, and thermal characteristics of the porous media control the mode of heat transfer, i.e., conduction or convection. 
 
-The amount of heat generated in the cables and the ability to dissipate the heat to the surrounding soil determines the inductive cable sizing. At present, the maximum operating conductor temperature of High-Voltage cables is 90 C which can translate to cable surface temperatures of up to 70 C~\cite{hughes2015effect,swaffield2008methods}. The current industry standard for determining the current rating of cables relies on IEC 60287 or the Neher and McGrath (1957) equation. The sizing design equations consider the electrical load characteristics and thermal conductivity of different sections of the cable materials. Both methods incorrectly assume the heat transfer occurs only through the thermal resistance in the soil (conduction), completely ignoring the convective heat dissipation.
+The amount of heat generated in the cables and the ability to dissipate the heat to the surrounding soil determines the inductive cable sizing. At present, the maximum operating conductor temperature of High-Voltage cables is \SI{90}{\celsius} which can translate to cable surface temperatures of up to \SI{70}{\celsius}~\cite{hughes2015effect,swaffield2008methods}. The current industry standard for determining the current rating of cables relies on IEC 60287 or the Neher and McGrath (1957) equation~\cite{neher1994calculation,IEC60287:2006}. The sizing design equations consider the electrical load characteristics and thermal conductivity of different sections of the cable materials. Both methods incorrectly assume the heat transfer occurs only through the thermal resistance in the soil (conduction), completely ignoring the convective heat dissipation.
 
 An experimental study by~\citeN{emeana2016thermal} and numerical modeling by~\citeN{hughes2015effect} and~\citeN{t2019combined} show that the current approach to cable sizing underestimates the amount of heat transfer through cables by only considering conduction through the soil.~\citeN{hughes2015effect} simulate the submarine environment as a porous media through which seawater can flow, allowing for an increased heat transfer through natural convection from the cables to the seabed. They identify permeability as the critical factor determining the mode of heat transfer. At low permeabilities, conductive heat transfer is dominant with a characteristic uniform symmetric distribution of heat around the cable. As the permeability increases, convection drives more heat towards the ground surface, breaking the symmetric heat distribution around the cable. An intermediate situation also occurs where both conduction and convection contribute to the total heat transfer. 
 
@@ -62,16 +63,18 @@ The non-dimensional Rayleigh ($Ra^\prime$) number determines the behavior of flu
 
 \begin{equation}
 Ra^\prime = \frac{\text{time scale for thermal transport via diffusion}}{\text{time scale for thermal transport via convection at velocity }u} = \frac{D^2/\alpha}{\mu/\Delta \rho D g} \,,
+\label{eq:ra-text}
 \end{equation}
 
-where $D$ is the depth of burial (or characteristic length), $\alpha$ is thermal diffusivity ($m^2/s$), $\mu$ is the dynamic viscosity of fluid ($Pa-S$), $\Delta \rho$ is the mass density difference due to heating, and $g$ is the acceleration due to gravity ($m/s^2$). The time scale for conduction across a distance $D$ is $D^2/\alpha$ and the convective velocity $u \sim \Delta \rho D^2 g / \mu$. When the Rayleigh number, $Ra^\prime$, is below a critical value, there is no flow, and heat transfer is purely by conduction; when $Ra^\prime$ exceeds the threshold value, heat transfer is by natural convection. The critical $Ra_c^\prime$ that determines the transition from conduction to convection depends on the geometry (thermal and hydraulic boundary conditions) and type of heat source (constant temperature or flux). 
+where $D$ is the depth of burial (or characteristic length), $\alpha$ is thermal diffusivity (\si{\meter\squared\per\second}), $\mu$ is the dynamic viscosity of fluid (\si{\pascal\cdot\second}), $\Delta \rho$ is the mass density difference due to heating, and $g$ is the acceleration due to gravity (\si{\meter\per\second\squared}). The time scale for conduction across a distance $D$ is $D^2/\alpha$ and the convective velocity $u \sim \Delta \rho D^2 g / \mu$. When the Rayleigh number, $Ra^\prime$, is below a critical value, there is no flow, and heat transfer is purely by conduction; when $Ra^\prime$ exceeds the threshold value, heat transfer is by natural convection. The critical $Ra_c^\prime$ that determines the transition from conduction to convection depends on the geometry (thermal and hydraulic boundary conditions) and type of heat source (constant temperature or flux). 
 
 For a flow through porous media, the Rayleigh number ($Ra^\prime$) is modified accounting for seepage velocity using Darcy's law. The modified Rayleigh-Darcy number ($Ra$) is:
 
 \begin{equation}
 Ra = \frac{\rho g D^3 \beta \Delta T}{\mu \alpha} \cdot \frac{k}{D^2} = \frac{\rho g D \beta \Delta T}{\mu \alpha}\,,
+\label{eq:ra}
 \end{equation}
-where $k$ is the intrinsic permeability ($m^2$) and $\beta$ is thermal expansion of water ($1/K$). 
+where $k$ is the intrinsic permeability (\si{\meter\squared}) and $\beta$ is thermal expansion of water (\si{\per\kelvin}). 
 
 \section{Numerical Model}
 We use a 2D Finite Difference model to solve the inductive heat transfer from the piggyback cables to the pipeline and eventually to the surrounding soil. We consider both conductive and convective heat transfer mechanisms by solving the partial differential equations for the heat transfer and the time-independent coupled fluid flow. 
@@ -83,7 +86,7 @@ The heat transfer in the presence of a constant source $Q_{in}$ under steady-sta
 Q_{in} = - \lambda \nabla^2 T + \rho_f c_{p_f} \mathbf{u} \cdot \nabla T\,,
 \label{eq:pde-heat}
 \end{equation}
-\noindent where $T$ is Temperature ($^\circ C$), $\rho_f$ is the density of fluid ($kg/m^3$), $c_{p_f}$ is the specific heat capacity of fluid ($J/Kg/^\circ C$), and $\mathbf{u}$ is the fluid velocity ($m/s$). The right hand side of~\cref{eq:pde-heat} represents the conductive ($- \lambda \nabla^2 T$) and convective ($ \rho_f c_{p_f} \mathbf{u} \cdot \nabla T$) heat transfer mechanisms. The bulk thermal conductivity of the soil $\lambda$ controls the conductive heat transfer. The bulk thermal conductivity is a function of porosity ($n$) and the individual thermal conductivities of solid ($\lambda_s$) and fluid ($\lambda_f$):
+\noindent where $T$ is Temperature (\si{\celsius}), $\rho_f$ is the density of fluid (\si{\kilo\gram\per\meter\cubed}), $c_{p_f}$ is the specific heat capacity of fluid (\si{\joule\per\kilo\gram\per\celsius}), and $\mathbf{u}$ is the fluid velocity (\si{\meter\per\second}). The right hand side of~\cref{eq:pde-heat} represents the conductive ($- \lambda \nabla^2 T$) and convective ($ \rho_f c_{p_f} \mathbf{u} \cdot \nabla T$) heat transfer mechanisms. The bulk thermal conductivity of the soil $\lambda$ controls the conductive heat transfer. The bulk thermal conductivity is a function of porosity ($n$) and the individual thermal conductivities of solid ($\lambda_s$) and fluid ($\lambda_f$):
 
 \begin{equation}
 \lambda = \lambda_s ( 1 - n) + \lambda_f n\,.
@@ -94,13 +97,13 @@ We assume the soil is fully saturated, i.e., the voids in the soil are filled wi
 \begin{equation}
 u = - \frac{1}{n \mu} k \left(\nabla p + g \rho_{f_0} \left(1 - \beta (T - T_0)\right)\right)\,,
 \end{equation}
-where $u$ is the fluid flow velocity ($m/s$), $n$ is the porosity, $\mu$ dynamic viscosity ($Pa.s$), $k$ is the intrinsic permeability ($m^2$), $p$ is pressure ($Pa$), $\rho_{f_0}$ is the reference fluid density at ambient temperature, and $\beta$ is the volumetric coefficient of thermal expansion ($K^{-1}$). 
+where $u$ is the fluid flow velocity (\si{\meter\per\second}), $n$ is the porosity, $\mu$ dynamic viscosity (\si{\pascal\cdot\second}), $k$ is the intrinsic permeability (\si{\meter\squared}), $p$ is pressure (\si{\pascal}), $\rho_{f_0}$ is the reference fluid density at ambient temperature, and $\beta$ is the volumetric coefficient of thermal expansion (\si{\per\kelvin}). 
 
 We solve the governing equation using a forward-difference in time, central-difference in space, and an upwind scheme for solving the derivatives in the flow field. 
 
 \subsection*{Geometry and Mesh}
 
-We evaluate the thermal distribution around a 0.2 m diameter oil pipeline heated by three piggyback cables of 0.02 m diameter at the pipe crown buried at 0.5 m from the ground surface. The oil pipeline has a wall thickness of 0.04 m. We simulate a 2 m x 2 m saturated soil domain using the Finite-Difference approach with a very fine mesh size of 4 mm. Figure X shows the model setup. The upwind scheme is stable when the Courant–Friedrichs–Lewy condition (CFL) is satisfied for a problem with a mesh size of $\Delta x$ and a flow velocity of $u$:
+We evaluate the thermal distribution around a \SI{0.2}{\meter} diameter oil pipeline heated by three piggyback cables of \SI{0.02}{\meter} diameter at the pipe crown buried at \SI{0.5}{\meter} from the ground surface. The oil pipeline has a wall thickness of \SI{0.04}{\meter}. We simulate a \SI{2}{\meter} x \SI{2}{\meter} saturated soil domain using the Finite-Difference approach with a very fine mesh size of \SI{4}{\milli\meter}.~\Cref{fig:model} shows the model setup. The upwind scheme is stable when the Courant–Friedrichs–Lewy condition (CFL) is satisfied for a problem with a mesh size of $\Delta x$ and a flow velocity of $u$:
 
 \begin{equation}
 c = |\frac{u \Delta t_c}{\Delta x}| \le 1\,.
@@ -112,9 +115,9 @@ We use a timestep of $\Delta t = \Delta t_c / 100$, where $\Delta t_C$ is the cr
 n \cdot u = 0 \text{ and } n \cdot (-\lambda \nabla T) = 0\,.
 \end{equation}
 
-We maintain a constant temperature at the top boundary to simulate the seawater. The interface between different materials (such as cable/pipeline and soil) is a no-fluid flow boundary but allows heat transfer through the interface. We apply a constant temperature on the three piggyback cables to heat the fluid inside the pipeline. All temperatures reported in the paper are temperatures above ambient conditions. We are interested in a 1 m x 1 m subdomain of the problem encompassing the cables and the pipeline as shown in~\cref{fig:model}.
+We maintain a constant temperature at the top boundary to simulate the seawater. The interface between different materials (such as cable/pipeline and soil) is a no-fluid flow boundary but allows heat transfer through the interface. We apply a constant temperature on the three piggyback cables to heat the fluid inside the pipeline. All temperatures reported in the paper are temperatures above ambient conditions. We are interested in a \SI{1}{\meter} x \SI{1}{\meter} subdomain of the problem encompassing the cables and the pipeline as shown in~\cref{fig:model}.
 
-\begin{figure}[!h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{figs/model.pdf}
     \caption{Schematic of the simulation geometry (not to scale). A fine mesh size of 0.004 m was used to discretize the domain with 250,000 elements.}
@@ -132,9 +135,9 @@ Although clay is highly porous, the presence of an electrical double-layer reduc
 \begin{equation}
  \gamma_{sat} = \frac{(G_s + e) \gamma_w}{1+e} \text{ and } n = \frac{e}{1+e}\,,   
 \end{equation}
-where $G_s$ is the specific gravity of solids, $e$ is the void ratio, $\gamma_w$ is the unit weight of water 9.81 $kN/m^3$, and $n$ is the soil porosity.~\Cref{tab:soil} presents the hydraulic and mechanical parameters of the soils used in this study. 
+where $G_s$ is the specific gravity of solids, $e$ is the void ratio, $\gamma_w$ is the unit weight of water \SI{9.81}{\kilo\newton\per\meter\cubed}, and $n$ is the soil porosity.~\Cref{tab:soil} presents the hydraulic and mechanical parameters of the soils used in this study. 
 
-\begin{table}[]
+\begin{table}[htpb]
 \caption{Soil material properties}
 \label{tab:soil}
 \begin{tabular}{llcccc}
@@ -142,10 +145,10 @@ where $G_s$ is the specific gravity of solids, $e$ is the void ratio, $\gamma_w$
 \textbf{Properties}           &   \textbf{units}                      & \textbf{Gravel} & \textbf{Sand} & \textbf{Silt} & \textbf{Clay} \\
 \midrule
 Porosity ($n$)                  & -                       & 0.3 - 0.35      & 0.3 - 0.45    & 0.4 - 0.45    & 0.45 - 0.6    \\
-Grain size ($d\_m$)             & mm                      & 7.5 - 20        & 0.1 - 2.5     & 0.025-0.07    & 0.002 - 0.02  \\
+Grain size ($d\_m$)             & \si{\milli\meter}                      & 7.5 - 20        & 0.1 - 2.5     & 0.025-0.07    & 0.002 - 0.02  \\
 Specific gravity ($G_s$)         & -                       & 2.75            & 2.65          & 2.67          & 2.7           \\
-Permeability ($k$)              & $m^2$    & 1E-7 - 1E-8     & 1E-9 - 1E-11  & 1E-12 - 1E-13 & 1E-13 - 1E-16 \\
-Density ($\rho$) & $kg/m^3$ & 2100 - 2200     & 1870 - 2110   & 1880 - 1970   & 1650 - 1890  \\
+Permeability ($k$)              & \si{\meter\squared}    & 1E-7 - 1E-8     & 1E-9 - 1E-11  & 1E-12 - 1E-13 & 1E-13 - 1E-16 \\
+Density ($\rho$) & \si{\kilo\gram\per\meter\cubed} & 2100 - 2200     & 1870 - 2110   & 1880 - 1970   & 1650 - 1890  \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -162,7 +165,7 @@ The thermal diffusivity of the soil is:
 \alpha_s = \lambda_b / (\rho * C_{p_b})\,.
 \end{equation}
 
-\begin{table}[]
+\begin{table}[htbp]
 \caption{Thermal properties of the fluid, soil, and the cables}
 \label{tab:mat}
 \centering
@@ -171,11 +174,11 @@ The thermal diffusivity of the soil is:
 \textbf{Properties}                         & \textbf{Value}   \\
 \midrule
 \textbf{Fluid}                              &                  \\
-Fluid density ($\rho_f$)                    & 1000 $kg/m^3$    \\
-Specific heat of fluid ($Cp_f$)             & 4290 $J/kg-K$    \\
-Thermal conductivity of fluid ($\lambda_f$) & 0.6 $W/m-K$      \\
-Thermal diffusivity of fluid ($\alpha_f$)   & 1.39E-7 $m^2/s$  \\
-Dynamic viscosity of fluid ($\mu$)          & 1E-3 $Pa-s$      \\
+Fluid density ($\rho_f$)                    & 1000 \si{\kilo\gram\per\meter\cubed}    \\
+Specific heat of fluid ($Cp_f$)             & 4290 \si{\joule\per\kilogram-\kelvin}    \\
+Thermal conductivity of fluid ($\lambda_f$) & 0.6 \si{\watt\per\meter-\kelvin} \\
+Thermal diffusivity of fluid ($\alpha_f$)   & 1.39E-7 \si{\meter\squared\per\second}  \\
+Dynamic viscosity of fluid ($\mu$)          & 1E-3 \si{\pascal\cdot\second}      \\
 \textbf{Soil}                               &                  \\
 Specific heat of soil ($C_{p_s}$)           & 8000 $J/kg-K$    \\
 Thermal conductivity of soil ($\lambda_s$)  & 1.0 $W/m-K$      \\
@@ -184,6 +187,143 @@ Thermal diffusivity of pipe ($\alpha_p$)    & 1.172E-5 $m^2/s$ \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\section{Results and discussion}
+
+We investigate the heat transfer from the piggyback cables to the pipeline and surrounding soil for different permeabilities. We bury the piggyback cables to a depth of \SI{0.5}{\meter} from the ground surface and the three cables are heated to an above ambient temperature of \SI{70}{\celsius}. We first discuss the distribution of heat around the cables and the pipeline in soil with a permeability $k$ of \SI{1.67E-11}{\meter\squared}.  Subsequently, we investigate how permeability influences the heat distribution identifying a critical Rayleigh number that delineates conduction from convection-dominated flows. 
+
+\subsection*{Time evolution of heat distribution}
+As the cables are heated, the pipeline and surrounding soil are inductively heated. The temperature in the pipe and the fluid inside gradually heat up eventually reaching a steady state with no change in temperature.~\Cref{fig:time-evol} shows the time evolution of temperature distribution around the pipe heated by three piggy-backed cables buried in soil with a permeability $k$ of \SI{1.67E-11}{\meter\squared} in the region of interest. In the first 10 hours, the cables heat the pipe wall, resulting in a linear temperature gradient in the pipe wall from the crown to the pipe invert, while the fluid inside is heated to a lower temperature than the pipe. Between 10 and 100 hours, the fluid inside the pipe heats at an accelerated rate achieving 95\% of its steady-state temperature. The temperature increase decelerates between 100 and 200 hours, as the system reaches 99.2\% of the steady-state condition. The pipe temperature reaches a steady-state beyond 700 hours. 
+Conductive heat transfer creates a symmetric spatial distribution of heat around the cable, while convection breaks the symmetry with a preferential upward flow. As the temperature distribution evolves with time (see \cref{fig:time-evol}), the heat transfer around the pipe remains symmetric for 20 hours, characteristic of a conductive behavior. After 50 hours, convection starts to dominate as buoyant forces drive the heat towards the ground surface resulting in asymmetric heat distribution in the vertical direction.~\Cref{fig:temp-vline} shows the temperature distribution with depth along the vertical axis of the pipe (AA’ in~\cref{fig:model}) at different times. For the entire duration, the heat dissipation rate below the pipe (0.72 to \SI{1}{\meter} from the ground surface) is slower than the rate above the pipe (0 to \SI{0.4}{\meter}). After 200 hours, the average temperature above the pipe is \SI{46.4}{\celsius}, more than four times as much heat below the pipe at \SI{10.8}{\celsius}, indicative of a convective flow. The heat distribution below the pipe is similar to the symmetric distribution seen in \cref{fig:temp-hline} along the horizontal direction, where conduction predominates. Convection carries heat away from the pipe towards the ground surface above the cables, while the heat dissipation below the pipe is predominantly through conduction. 
+
+
+\begin{figure}
+ \centering
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/time-evol/1h.png}
+    \caption{\SI{1}{\hour}}
+ \end{subfigure}             
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/time-evol/3h.png}
+    \caption{\SI{3}{\hour}}
+ \end{subfigure}\\           
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/time-evol/5h.png}
+    \caption{\SI{5}{\hour}}
+ \end{subfigure}             
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/time-evol/10h.png}
+    \caption{\SI{10}{\hour}}
+ \end{subfigure}   \\
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/time-evol/20h.png}
+    \caption{\SI{20}{\hour}}
+ \end{subfigure}             
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/time-evol/50h.png}
+    \caption{\SI{50}{\hour}}
+ \end{subfigure}\\           
+\end{figure}%
+\begin{figure}[ht]\ContinuedFloat 
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/time-evol/100h.png}
+    \caption{\SI{100}{\hour}}
+ \end{subfigure}             
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/time-evol/200h.png}
+    \caption{\SI{200}{\hour}}
+    \label{fig:200}
+ \end{subfigure}  \\
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/time-evol/500h.png}
+    \caption{\SI{500}{\hour}}
+    \label{fig:500}
+ \end{subfigure}             
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/time-evol/1000h.png}
+    \caption{\SI{1000}{\hour}}
+    \label{fig:1000}
+ \end{subfigure}  \\
+ 
+ \caption{Evolution of temperature in the region of interest, as shown in~\cref{fig:model}, with time in soil with permeability $k = \SI{1.67E-11}{\meter\squared} (Ra = 7.29)$. The cables are heated to an above ambient temperature of \SI{70}{\celsius} and the burial depth is \SI{0.5}{\meter}.}
+ \label{fig:time-evol}
+\end{figure}
+
+\begin{figure}
+\centering
+  \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/depth-temp.eps}
+    \caption{the vertical axis (A-A’)}
+    \label{fig:temp-vline}
+ \end{subfigure}             
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/hline-temp.eps}
+    \caption{the horizontal axis (B-B’)}
+    \label{fig:temp-hline}
+ \end{subfigure}
+ 
+ \caption{Evolution of temperature with time along the vertical (A-A’) and horizontal (B-B’) axis along the pipe center for a soil with $k = \SI{1.67E-11}{\meter\squared} (Ra = 7.29)$. The cables are heated to an above ambient temperature of \SI{70}{\celsius} and the burial depth is \SI{0.5}{\meter}.}
+ \label{fig:temp-depth-hline}
+\end{figure}
+
+\Cref{fig:rate-temp} shows the rate of temperature change with time at the center of the pipe buried in soils with different permeabilities to identify the ideal simulation duration. For high permeability soils ($k > \SI{1E-10}{\meter\squared}$), the steady-state condition is reached within 50 hours, whereas low permeability soils ($K < \SI{1E-12}{\meter\squared}$) show no noticeable change in temperature gradients beyond 150 hours. \Cref{fig:200,fig:500,fig:1000} shows the heat distribution remains unchanged beyond 200 hours. We choose 200 hours for all subsequent simulations to balance the long computational duration and achieve a system closer to steady-state. 
+
+\subsection*{Permeability variation}
+The Rayleigh-Darcy dimensionless number ($Ra$) represents the time scales between conductive and convective flow in the soil as shown in~\cref{eq:ra-text}. The critical Rayleigh number that differentiates regions dominated by conduction and convection varies based on the boundary conditions. Unlike other factors defining the Rayleigh number (see~\cref{eq:ra}), the permeability of natural soils ($k$) varies by several orders of magnitude from \SI{1E-16}{\meter\squared} in clayey soil to \SI{1E-7}{\meter\squared} in sandy materials. Hence, of the various factors influencing the Rayleigh number, the soil permeability is a critical factor in determining the mode of heat transfer: conduction or convection.
+
+We vary the soil permeability from 1E-7 to \SI{1E-16}{\meter\squared} to determine the effect of permeability on the mode of heat dissipation. Figure 5 shows the temperature distribution around the pipe after 200 hours in different soil permeabilities. At high permeabilities ($k > \SI{2E-10}{\meter\squared}$), convection dominates, resulting in a near-vertical transfer of heat away from the cables and barely heating the pipe. The seepage velocity in soil controls the time-scale of convection. Highly interconnected pore space in high permeability soils results in higher seepage velocity and a lower time-scale for convection, i.e., higher Rayleigh number. In these high permeabilities, buoyancy forces drive fluid circulation as the ease of fluid flow improves, reducing the time-scale for convection. Convection-driven flows have higher Rayleigh numbers and a preferential upward migration of heat away from the source. Convective flow is detrimental to inductive heating of the pipeline losing a significant fraction of heat to the surrounding soil.
+
+As the permeability reduces ($k =$ \SI{4.9E-11} to \SI{4.9E-12}{\meter\squared}), the heat distributes more uniformly around the cable, heating the pipe; but still showing a preferential upward heat distribution reaching the ground surface typical in a convection-dominated behavior. The pipe temperature increases showing symmetric heat distribution around the cable as the permeability decreases from \SI{1E-12} to \SI{1E-15}{\meter\squared}. In these low permeability conditions, conduction dominates, and the pipeline is heated efficiently, barely losing any heat to the surrounding soil.  At very low permeabilities (in silty and clayey soil with $k < \SI{1E−12}{\meter\squared}$ and $d_m < \SI{70}{\micro\meter}$), the narrow and sparsely interconnected pore spaces limit the fluid flow velocity. Hence, the time scale of convection is much larger than that of conduction, i.e., a smaller Rayleigh number indicating conduction-driven flows. Conductive heat transfer causes an approximately isotropic distribution of heat around the source. 
+For a given burial depth, the density of soil determines the time scale of conduction. Unlike the orders of magnitude variation in the soil permeability with grain size, the soil density only varies in a narrow range between 1640 to \SI{2110}{\kilogram\per\meter\cubed}. Although this variation in density affects the time scale of conduction, the difference in the temperature distribution for low permeability soils is negligible at steady state. 
+
+
+\begin{figure}
+ \centering
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/ra/955.png}
+    \caption{$Ra$ = 955, $k$ = \SI{1.91E-9}{\meter\squared}}
+ \end{subfigure}
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/ra/269.png}
+    \caption{$Ra$ = 269.5, $k$ = \SI{5.64E-10}{\meter\squared}}
+ \end{subfigure}\\
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/ra/112.png}
+    \caption{$Ra$ = 112, $k$ = \SI{2.47E-10}{\meter\squared}}
+ \end{subfigure}
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/ra/21.png}
+    \caption{$Ra$ = 21.95, $k$ = \SI{4.89E-11}{\meter\squared}}
+ \end{subfigure}\\ 
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/ra/7.png}
+    \caption{$Ra$ = 7.29, $k$ = \SI{1.67E-11}{\meter\squared}}
+ \end{subfigure}
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/ra/2.png}
+    \caption{$Ra$ = 2.225, $k$ = \SI{4.84E-12}{\meter\squared}}
+ \end{subfigure}\\  
+\end{figure}%
+\begin{figure}[ht]\ContinuedFloat 
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/ra/0p45.png}
+    \caption{$Ra$ = \SI{4.58E-1}, $k$ = \SI{1.05E-12}{\meter\squared}}
+ \end{subfigure}
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/ra/0p049.png}
+    \caption{$Ra$ = \SI{4.9E-2}, $k$ = \SI{1.11E-13}{\meter\squared}}
+ \end{subfigure}\\    
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/ra/0p0049.png}
+    \caption{$Ra$ = \SI{4.4E-4}, $k$ = \SI{1.05E-14}{\meter\squared}}
+ \end{subfigure}
+ \begin{subfigure}[b]{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/ra/0p00049.png}
+    \caption{$Ra$ = \SI{4.4E-4}, $k$ = \SI{1.18E-15}{\meter\squared}}
+ \end{subfigure}\\ 
+ \caption{Temperature distribution in different soil permeability conditions. The cables are heated to an above ambient temperature of \SI{70}{\celsius} and the burial depth is \SI{0.5}{\meter}.}
+ \label{fig:ra-evol}
+\end{figure}
 
 \pagebreak
 %
